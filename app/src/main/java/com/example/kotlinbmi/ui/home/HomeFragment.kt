@@ -1,7 +1,6 @@
 package com.example.kotlinbmi.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,15 +31,24 @@ class HomeFragment : Fragment() {
         val heightEdit: EditText = root.findViewById(R.id.height)
         val result: TextView = root.findViewById(R.id.textBmi)
         val male: RadioButton = root.findViewById(R.id.radioMale)
+        val ageEdit: EditText = root.findViewById(R.id.age)
 
         button.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 val weight : Float = weightEdit.text.toString().toFloat()
                 val height : Float = heightEdit.text.toString().toFloat()
+                val age : Float = ageEdit.text.toString().toFloat()
                 val bmi : Float = (weight / ((height*height) / 100))*100;
-                
+                val calories : Double
 
-                result.text = "Your BMI: " + "%.1f".format(bmi).toDouble().toString() + "\nYou can eat " + male.isChecked.toString()
+                if(male.isChecked) {
+                    calories = 66.47 + 13.7 * weight + 5 * height - 6.76 * age
+                }
+                else {
+                    calories = 655.1 + (9.567 * weight) + (1.85 * height) - (4.68 * age)
+                }
+
+                result.text = "Your BMI: " + "%.1f".format(bmi).toDouble().toString() + "\nYou can eat " + "%.2f".format(calories).toDouble().toString() + " calories"
             }
         })
 
