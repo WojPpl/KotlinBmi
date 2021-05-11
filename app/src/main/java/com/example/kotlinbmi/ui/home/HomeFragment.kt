@@ -8,7 +8,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinbmi.R
@@ -47,6 +49,10 @@ class HomeFragment : Fragment() {
                 else {
                     calories = 655.1 + (9.567 * weight) + (1.85 * height) - (4.68 * age)
                 }
+
+                val datato = bmi.toString()
+
+                setFragmentResult("requestKey", bundleOf("data" to datato))
 
                 result.text = "Your BMI: " + "%.1f".format(bmi).toDouble().toString() + "\nYou can eat " + "%.2f".format(calories).toDouble().toString() + " calories"
             }
